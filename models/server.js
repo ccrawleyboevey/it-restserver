@@ -1,6 +1,5 @@
 import express from 'express';
-
-const port = process.env.PORT;
+import cors    from 'cors';
 
 class Server {
 
@@ -16,12 +15,13 @@ class Server {
     }
 
     routes() {
-        this.app.get( '/api', ( req, res ) => {
-            res.send( 'Hola Mundo' );
-        });
+        this.app.use( '/api/usuarios', require('../routes/user.js') );
     }
 
     middlewares() {
+
+        // CORS
+        this.app.use( cors() );
         //  Directorio público
         this.app.use( express.static('public') );
     }
